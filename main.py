@@ -13,30 +13,31 @@ HEIGHT = 768
 SIZE = (WIDTH, HEIGHT)
 FPS = 60
 FramePerSec = pygame.time.Clock()
-score = open("score.txt","a")
+with open("score.txt","a") as score:
+    score.close()
 
 BLACK = (0, 0, 0)
 BROWN = (165, 60, 60)
 GRAY = (127, 127, 127)
 WHITE = (255, 255, 255)
-RED = (255, 0, 0)
+RED = (100, 0, 0)
 GREEN = (0, 100, 0)
-BLUE = (0, 0, 255)
+BLUE = (0, 0, 100)
 YELLOW = (255, 255, 0)
 CYAN = (0, 255, 255)
 MAGENTA = (255, 0, 255)
 
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Invaders v.0.1")
-background = pygame.image.load("sprites/Background_resized.png")
-crosshair = pygame.image.load("sprites/Crosshair_resized.png")
+background = pygame.image.load("assets/sprites/Background_resized.png")
+crosshair = pygame.image.load("assets/sprites/Crosshair_resized.png")
 pygame.mouse.set_visible(False)
 crosshair_rect = crosshair.get_rect()
-death_sound = pygame.mixer.Sound("sounds/explosion.wav")
+death_sound = pygame.mixer.Sound("assets/sounds/explosion.wav")
 death_sound.set_volume(0.1)
-shot_sound = pygame.mixer.Sound("sounds/laser.wav")
+shot_sound = pygame.mixer.Sound("assets/sounds/laser.wav")
 shot_sound.set_volume(0.1)
-pygame.mixer.music.load("sounds/music.mp3")
+pygame.mixer.music.load("assets/sounds/music.mp3")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.1)
 
@@ -55,7 +56,7 @@ class Player(pygame.sprite.Sprite):
             mouse_pos=pygame.mouse.get_pos()
             ):
         super().__init__()
-        self.image = pygame.image.load("sprites/Ship_resized.png")
+        self.image = pygame.image.load("assets/sprites/Ship_resized.png")
         self.rect = self.image.get_rect()
         self.pos = vec((WIDTH / 2, HEIGHT / 2))  # initial spawn position
         self.vel = vel  # initial velocity
@@ -142,9 +143,9 @@ class Asteroid(pygame.sprite.Sprite):
     def __init__(self, size=2):  # Add a default size parameter
         super().__init__()
         self.size = size  # Set the size of the asteroid
-        if self.size == 2: self.image = pygame.image.load("sprites/Asteroid.png")
-        elif self.size == 1: self.image = pygame.image.load("sprites/Asteroid_medium.png")
-        elif self.size == 0: self.image = pygame.image.load("sprites/Asteroid_resized.png")
+        if self.size == 2: self.image = pygame.image.load("assets/sprites/Asteroid.png")
+        elif self.size == 1: self.image = pygame.image.load("assets/sprites/Asteroid_medium.png")
+        elif self.size == 0: self.image = pygame.image.load("assets/sprites/Asteroid_resized.png")
         self.original_image = self.image  # Keep a reference to the original image for rotation
         self.rect = self.image.get_rect()
         self.pos = vec(random.randint(self.rect.width, WIDTH - self.rect.width),
